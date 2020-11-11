@@ -1,13 +1,11 @@
-const router = require('express').Router
+const router = require('express').Router()
 const {Product} = require('../db/models')
 module.exports = router
 
 // GET /api/products
 router.get('/', async (req, res, next) => {
   try {
-    const products = await Product.findAll({
-      attributes: ['productId', 'name', 'price'], //might need to add more
-    })
+    const products = await Product.findAll()
     res.json(products)
   } catch (error) {
     next(error)
@@ -17,9 +15,7 @@ router.get('/', async (req, res, next) => {
 // GET /api/products/:productId
 router.get('/:productId', async (req, res, next) => {
   try {
-    const product = await Product.findByPk(req.params.productId, {
-      attributes: ['productId', 'name', 'price'], //might need to add more
-    })
+    const product = await Product.findByPk(req.params.productId)
     res.json(product)
   } catch (error) {
     next(error)
@@ -41,7 +37,7 @@ router.delete('/:productId', async (req, res, next) => {
   try {
     await Product.destroy({
       where: {
-        productId: req.params.productId,
+        id: req.params.productId,
       },
     })
     res.sendStatus(204)
@@ -56,7 +52,7 @@ router.put('/:productId', async (req, res, next) => {
     const updatedProductInfo = await Product.update(req.body, {
       returning: true,
       where: {
-        productId: req.params.productId,
+        id: req.params.productId,
       },
     })
 
