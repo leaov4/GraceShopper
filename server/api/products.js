@@ -1,4 +1,4 @@
-const router = require('express').Router
+const router = require('express').Router()
 const {Product} = require('../db/models')
 module.exports = router
 
@@ -6,7 +6,7 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const products = await Product.findAll({
-      attributes: ['productId', 'name', 'price'], //might need to add more
+      attributes: ['productId', 'name', 'price'] //might need to add more
     })
     res.json(products)
   } catch (error) {
@@ -18,7 +18,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:productId', async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.productId, {
-      attributes: ['productId', 'name', 'price'], //might need to add more
+      attributes: ['productId', 'name', 'price'] //might need to add more
     })
     res.json(product)
   } catch (error) {
@@ -41,8 +41,8 @@ router.delete('/:productId', async (req, res, next) => {
   try {
     await Product.destroy({
       where: {
-        productId: req.params.productId,
-      },
+        productId: req.params.productId
+      }
     })
     res.sendStatus(204)
   } catch (error) {
@@ -56,8 +56,8 @@ router.put('/:productId', async (req, res, next) => {
     const updatedProductInfo = await Product.update(req.body, {
       returning: true,
       where: {
-        productId: req.params.productId,
-      },
+        productId: req.params.productId
+      }
     })
 
     if (updatedProductInfo.length !== 2) {
