@@ -5,6 +5,7 @@ import {fetchSingleProduct} from '../store/single-product'
 export class SingleProduct extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id
+    console.log('--->id:', id)
     this.props.getSingleProduct(id)
   }
 
