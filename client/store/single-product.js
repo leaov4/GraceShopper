@@ -14,11 +14,9 @@ export const setSingleProduct = (product) => {
 //THUNK
 export const fetchSingleProduct = (productId) => async (dispatch) => {
   try {
-    console.log('--->thunk prod id: ', productId)
     const {data: product} = await axios.get(`/api/products/${productId}`)
     dispatch(setSingleProduct(product))
   } catch (err) {
-    console.log('Error fetching single product.')
     console.error(err)
   }
 }
