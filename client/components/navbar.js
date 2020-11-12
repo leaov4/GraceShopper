@@ -6,8 +6,8 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>BOILERMAKER</h1>
     <nav>
+      {/* This is the section I updated */}
       {/* {fill in logo img later} */}
       <Link to="/home">Home</Link>
       <Link to="/products">Shop</Link>
