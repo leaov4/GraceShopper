@@ -63,7 +63,7 @@ export const logout = () => async (dispatch) => {
 
 export const createUser = (newUser) => async (dispatch) => {
   try {
-    const existingUser = await axios.get(`/api/users/signup`, {
+    const {data: existingUser} = await axios.get(`/api/users/signup`, {
       params: {
         email: newUser.email,
       },
@@ -73,6 +73,7 @@ export const createUser = (newUser) => async (dispatch) => {
     } else {
       const {data: user} = axios.post(`/api/users/signup`, newUser)
       dispatch(createdUser(user))
+      alert('Sign up successful!')
     }
   } catch (err) {
     console.log('There was an error creating new user.')

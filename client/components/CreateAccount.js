@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {createAccount} from '../store/user'
+import {createUser} from '../store/user'
 
 class CreateAccount extends React.Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class CreateAccount extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    this.props.createAccount(this.state)
+    this.props.createUser(this.state)
   }
 
   render() {
@@ -63,6 +63,7 @@ class CreateAccount extends React.Component {
             minLength="6"
             required
           />
+          <button type="submit">Submit</button>
         </form>
       </div>
     )
@@ -71,7 +72,7 @@ class CreateAccount extends React.Component {
 
 const mapDispatch = (dispatch) => {
   return {
-    createAccount: (user) => dispatch(createAccount(user)),
+    createUser: (user) => dispatch(createUser(user)),
   }
 }
 

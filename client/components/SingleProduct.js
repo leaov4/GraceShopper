@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/single-product'
+import CreateAccount from './CreateAccount'
 
 export class SingleProduct extends React.Component {
   componentDidMount() {
@@ -12,6 +13,7 @@ export class SingleProduct extends React.Component {
     const product = this.props.product
     return (
       <div>
+        <CreateAccount />
         <div className="single-product">
           <img className="p-img" src={product.imageUrl} />
           <h1 className="p-name">{product.name}</h1>
@@ -31,7 +33,7 @@ export class SingleProduct extends React.Component {
   }
 }
 
-const mapState = (state) => {
+const mapProps = (state) => {
   return {
     product: state.singleproduct.product,
   }
@@ -43,4 +45,4 @@ const mapDispatch = (dispatch) => {
   }
 }
 
-export default connect(mapState, mapDispatch)(SingleProduct)
+export default connect(mapProps, mapDispatch)(SingleProduct)
