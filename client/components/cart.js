@@ -17,17 +17,26 @@ export class Cart extends React.Component {
   }
 
   render() {
+    let cartProducts = this.props.cartProducts
+
     return (
       <div>
         <h1>Cart</h1>
-        <div className="product">
-          Image, Name, Price
+        <div className="cartProducts">
+          {cartProducts.map((item) => (
+            <div key={item.id}>
+              {/* or it could be productId */}
+              <img src={item.imageUrl} />
+              <h6>{item.name}</h6>
+              <h5>{item.price}</h5>
+            </div>
+          ))}
           <button type="button">-</button>
           <h6>1</h6>
           <button type="button">+</button>
           <button
             type="button"
-            onClick={() => this.props.removeCartItem(product.id)}
+            onClick={() => this.props.removeCartItem(cartProducts.id)}
           >
             delete
           </button>
@@ -43,6 +52,7 @@ export class Cart extends React.Component {
           </button>
           <h2>Total: $80</h2>
           <button type="button">checkout</button>
+          {/* might change the checkout button to link */}
         </div>
       </div>
     )
