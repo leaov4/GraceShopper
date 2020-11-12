@@ -1,10 +1,19 @@
 import React from 'react'
-import {useHistory} from 'react-router-dom'
+import {connect} from 'react-redux'
 
+import {
+  fetchCartProductsThunk,
+  changeQuantityThunk,
+  deleteCartProductThunk,
+} from '../store/cart'
 export class Cart extends React.Component {
-  constructor(props) {
-    super(props)
-    // this.state = {  }
+  // constructor(props) {
+  //   super(props)
+  //   // this.state = {  }
+  // }
+
+  componentDidMount() {
+    this.props.loadCart()
   }
 
   render() {
@@ -16,7 +25,12 @@ export class Cart extends React.Component {
           <button type="button">-</button>
           <h6>1</h6>
           <button type="button">+</button>
-          <button type="button">delete</button>
+          <button
+            type="button"
+            onClick={() => this.props.removeCartItem(product.id)}
+          >
+            delete
+          </button>
         </div>
         <div className="checkout-bar">
           <button
@@ -35,4 +49,19 @@ export class Cart extends React.Component {
   }
 }
 
-export default Cart
+const mapStateToProps = (state) => {
+  return {
+    cartProducts: state.cartProducts,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadCart: () => dispatch(fetchCartProductsThunk()),
+    editItemQuan: (productId, product) =>
+      dispatch(changeQuantityThunk(productId, product)),
+    removeCartItem: (productId) => dispatch(deleteCartProductThunk(productId)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart)

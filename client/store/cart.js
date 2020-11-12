@@ -69,7 +69,7 @@ const cartReducer = (state = initialState, action) => {
       return action.cartProducts // not sure how it is called yet
     case CHANGE_QUANTITY:
       return [
-        ...state, // not sure how to put the quan change in here yet
+        ...state, // probably need to do arr.map here to update the quan
       ]
     case DELETE_CART_PRODUCT: {
       const remainingProducts = state.filter(
