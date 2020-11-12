@@ -161,7 +161,6 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var id = this.props.match.params.id;
-      console.log('--->id:', id);
       this.props.getSingleProduct(id);
     }
   }, {
@@ -949,8 +948,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCT'; //ACTION CREATOR
 
 var setSingleProduct = function setSingleProduct(product) {
-  console.log('in single product');
-  console.log('--->ac product: ', product);
   return {
     type: SET_SINGLE_PRODUCT,
     product: product
@@ -971,30 +968,29 @@ var fetchSingleProduct = function fetchSingleProduct(productId) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                console.log('--->got product id: ', productId);
+                console.log('--->thunk prod id: ', productId);
                 _context.next = 4;
                 return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/products/".concat(productId));
 
               case 4:
                 _ref2 = _context.sent;
                 product = _ref2.data;
-                console.log('--->product: ', product);
                 dispatch(setSingleProduct(product));
-                _context.next = 14;
+                _context.next = 13;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 9:
+                _context.prev = 9;
                 _context.t0 = _context["catch"](0);
                 console.log('Error fetching single product.');
                 console.error(_context.t0);
 
-              case 14:
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 10]]);
+        }, _callee, null, [[0, 9]]);
       }));
 
       return function (_x) {
@@ -1013,13 +1009,11 @@ var initialState = {
 
   switch (action.type) {
     case SET_SINGLE_PRODUCT:
-      console.log('--->reducer product: ', action.product);
       return _objectSpread({}, state, {
         product: action.product
       });
 
     default:
-      console.log('*******hit default');
       return state;
   }
 });
