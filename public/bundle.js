@@ -373,16 +373,16 @@ __webpack_require__.r(__webpack_exports__);
 var Navbar = function Navbar(_ref) {
   var handleClick = _ref.handleClick,
       isLoggedIn = _ref.isLoggedIn;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "BOILERMAKER"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null, isLoggedIn ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/home"
-  }, "Home"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+  }, "Home"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+    to: "/products"
+  }, "Shop"), isLoggedIn ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "#",
     onClick: handleClick
   }, "Logout")) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/login"
-  }, "Login"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-    to: "/signup"
-  }, "Sign Up"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
+  }, "Login"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
 };
 /**
  * CONTAINER
@@ -659,7 +659,7 @@ socket.on('connect', function () {
 /*!*******************************!*\
   !*** ./client/store/index.js ***!
   \*******************************/
-/*! exports provided: default, me, auth, logout */
+/*! exports provided: default, me, auth, logout, createUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -678,6 +678,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "auth", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["auth"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["logout"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createUser", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["createUser"]; });
 
 
 
@@ -1081,7 +1083,7 @@ var initialState = {
 /*!******************************!*\
   !*** ./client/store/user.js ***!
   \******************************/
-/*! exports provided: me, auth, logout, default */
+/*! exports provided: me, auth, logout, createUser, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1089,6 +1091,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "me", function() { return me; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "auth", function() { return auth; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createUser", function() { return createUser; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _history__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../history */ "./client/history.js");
@@ -1104,6 +1107,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var GET_USER = 'GET_USER';
 var REMOVE_USER = 'REMOVE_USER';
+var CREATED_USER = 'CREATE_USER';
 /**
  * INITIAL STATE
  */
@@ -1123,6 +1127,13 @@ var getUser = function getUser(user) {
 var removeUser = function removeUser() {
   return {
     type: REMOVE_USER
+  };
+};
+
+var createdUser = function createdUser(user) {
+  return {
+    type: CREATED_USER,
+    user: user
   };
 };
 /**
@@ -1260,6 +1271,60 @@ var logout = function logout() {
 
       return function (_x3) {
         return _ref3.apply(this, arguments);
+      };
+    }()
+  );
+};
+var createUser = function createUser(newUser) {
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref4 = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee4(dispatch) {
+        var existingUser, _axios$post, user;
+
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.prev = 0;
+                _context4.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/signup", {
+                  params: {
+                    email: newUser.email
+                  }
+                });
+
+              case 3:
+                existingUser = _context4.sent;
+
+                if (existingUser) {
+                  alert('That user already exists!');
+                } else {
+                  _axios$post = axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/users/signup", newUser), user = _axios$post.data;
+                  dispatch(createdUser(user));
+                }
+
+                _context4.next = 11;
+                break;
+
+              case 7:
+                _context4.prev = 7;
+                _context4.t0 = _context4["catch"](0);
+                console.log('There was an error creating new user.');
+                console.error(_context4.t0);
+
+              case 11:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, null, [[0, 7]]);
+      }));
+
+      return function (_x4) {
+        return _ref4.apply(this, arguments);
       };
     }()
   );
