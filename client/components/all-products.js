@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchProducts, destroyProduct} from './store/products'
+import {fetchProducts, destroyProduct} from '../store/products'
 import AddProduct from './add-product'
 
 class AllProducts extends React.Component {
