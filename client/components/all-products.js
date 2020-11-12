@@ -1,13 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchProducts, destroyProduct} from './store/products'
+import {fetchProducts, destroyProduct} from '../store/products'
 import AddProduct from './add-product'
 
 class AllProducts extends React.Component {
   constructor() {
     super()
     this.state = {
-      hasError: false
+      hasError: false,
     }
     this.handleRemove = this.handleRemove.bind(this)
   }
@@ -34,7 +34,7 @@ class AllProducts extends React.Component {
         <div>
           <div>All Products</div>
           <div className="grid-container">
-            {products.map(plant => {
+            {products.map((plant) => {
               return (
                 <div className="item" key={plant.id}>
                   <img src={plant.imageUrl} />
@@ -59,14 +59,14 @@ class AllProducts extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  products: state.products
+const mapStateToProps = (state) => ({
+  products: state.products,
 })
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     fetchProducts: () => dispatch(fetchProducts()),
-    destroyProduct: id => dispatch(destroyProduct(id))
+    destroyProduct: (id) => dispatch(destroyProduct(id)),
   }
 }
 

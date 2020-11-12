@@ -59,7 +59,6 @@ describe('fetchSingleProduct', () => {
     it('sets the received product on state', async () => {
       await store.dispatch(fetchSingleProduct(product.id))
       const state = store.getState()
-      console.log('--->state: ', state)
       expect(state.product).to.deep.equal(product)
     })
   })

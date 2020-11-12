@@ -161,7 +161,6 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var id = this.props.match.params.id;
-      console.log('--->id:', id);
       this.props.getSingleProduct(id);
     }
   }, {
@@ -925,13 +924,15 @@ var createProduct = function createProduct(product) {
 /*!****************************************!*\
   !*** ./client/store/single-product.js ***!
   \****************************************/
-/*! exports provided: setSingleProduct, fetchSingleProduct, default */
+/*! exports provided: setSingleProduct, updatedProduct, fetchSingleProduct, updateProduct, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSingleProduct", function() { return setSingleProduct; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updatedProduct", function() { return updatedProduct; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchSingleProduct", function() { return fetchSingleProduct; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateProduct", function() { return updateProduct; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -946,14 +947,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
  //ACTION TYPE
 
-var SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCT'; //ACTION CREATOR
+var SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCT';
+var UPDATED_PRODUCT = 'UPDATED_PRODUCT'; //ACTION CREATOR
 
 var setSingleProduct = function setSingleProduct(product) {
-  console.log('in single product');
-  console.log('--->ac product: ', product);
   return {
     type: SET_SINGLE_PRODUCT,
     product: product
+  };
+};
+var updatedProduct = function updatedProduct(newProduct) {
+  return {
+    type: UPDATED_PRODUCT,
+    newProduct: newProduct
   };
 }; //THUNK
 
@@ -971,34 +977,76 @@ var fetchSingleProduct = function fetchSingleProduct(productId) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                console.log('--->got product id: ', productId);
-                _context.next = 4;
+                _context.next = 3;
                 return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/products/".concat(productId));
 
-              case 4:
+              case 3:
                 _ref2 = _context.sent;
                 product = _ref2.data;
-                console.log('--->product: ', product);
                 dispatch(setSingleProduct(product));
-                _context.next = 14;
+                _context.next = 12;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 8:
+                _context.prev = 8;
                 _context.t0 = _context["catch"](0);
-                console.log('Error fetching single product.');
+                console.log('There was an error fetching single product.');
                 console.error(_context.t0);
 
-              case 14:
+              case 12:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 10]]);
+        }, _callee, null, [[0, 8]]);
       }));
 
       return function (_x) {
         return _ref.apply(this, arguments);
+      };
+    }()
+  );
+};
+var updateProduct = function updateProduct(product) {
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref3 = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee2(dispatch) {
+        var _ref4, data;
+
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.prev = 0;
+                _context2.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/products/".concat(product.id), product);
+
+              case 3:
+                _ref4 = _context2.sent;
+                data = _ref4.data;
+                dispatch(updatedProduct(data));
+                _context2.next = 12;
+                break;
+
+              case 8:
+                _context2.prev = 8;
+                _context2.t0 = _context2["catch"](0);
+                console.log('There was an error updating product.');
+                console.error(_context2.t0);
+
+              case 12:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[0, 8]]);
+      }));
+
+      return function (_x2) {
+        return _ref3.apply(this, arguments);
       };
     }()
   );
@@ -1013,13 +1061,16 @@ var initialState = {
 
   switch (action.type) {
     case SET_SINGLE_PRODUCT:
-      console.log('--->reducer product: ', action.product);
       return _objectSpread({}, state, {
         product: action.product
       });
 
+    case UPDATED_PRODUCT:
+      return _objectSpread({}, state, {
+        product: action.newProduct
+      });
+
     default:
-      console.log('*******hit default');
       return state;
   }
 });
@@ -44743,7 +44794,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
