@@ -31,7 +31,7 @@ export class SingleProduct extends React.Component {
   }
 }
 
-const mapProps = (state) => {
+const mapState = (state) => {
   return {
     product: state.singleproduct.product,
   }
@@ -43,4 +43,4 @@ const mapDispatch = (dispatch) => {
   }
 }
 
-export default connect(mapProps, mapDispatch)(SingleProduct)
+export default connect(mapState, mapDispatch)(SingleProduct)

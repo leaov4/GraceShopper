@@ -194,7 +194,7 @@ function (_React$Component) {
   return SingleProduct;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-var mapProps = function mapProps(state) {
+var mapState = function mapState(state) {
   return {
     product: state.singleproduct.product
   };
@@ -208,7 +208,7 @@ var mapDispatch = function mapDispatch(dispatch) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapProps, mapDispatch)(SingleProduct));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapState, mapDispatch)(SingleProduct));
 
 /***/ }),
 
