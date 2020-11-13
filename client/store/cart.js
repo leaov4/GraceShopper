@@ -38,7 +38,8 @@ export const deleteCartProduct = (productId) => {
 export const fetchCartProductsThunk = () => {
   return async (dispatch) => {
     try {
-      const {data} = await axios.get('/api/orders')
+      const userId = window.localStorage.getItem('userId')
+      const {data} = await axios.get('/api/orders', userId)
       dispatch(receiveCartProducts(data))
     } catch (error) {
       console.log(error)
@@ -91,7 +92,7 @@ const initialState = []
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_CART_PRODUCTS:
-      return action.cartProducts // not sure how it is called yet
+      return action.cartProducts
     case INCREASE_QUANTITY: {
       let updatedProducts = [...state]
       let pIdx = updatedProducts.findIndex(
