@@ -26,7 +26,26 @@ router.get('/:productId', async (req, res, next) => {
 // POST /api/products
 router.post('/', async (req, res, next) => {
   try {
-    const newProduct = await Product.create(req.body)
+    const {
+      name,
+      price,
+      inventory,
+      category,
+      climate,
+      season,
+      description,
+      imageUrl,
+    } = req.body
+    const newProduct = await Product.create({
+      name,
+      price,
+      inventory,
+      category,
+      climate,
+      season,
+      description,
+      imageUrl,
+    })
     res.json(newProduct)
   } catch (error) {
     next(error)
@@ -50,12 +69,34 @@ router.delete('/:productId', async (req, res, next) => {
 // PUT /api/products/:productId
 router.put('/:productId', async (req, res, next) => {
   try {
-    const updatedProductInfo = await Product.update(req.body, {
-      returning: true,
-      where: {
-        id: req.params.productId,
+    const {
+      name,
+      price,
+      inventory,
+      category,
+      climate,
+      season,
+      description,
+      imageUrl,
+    } = req.body
+    const updatedProductInfo = await Product.update(
+      {
+        name,
+        price,
+        inventory,
+        category,
+        climate,
+        season,
+        description,
+        imageUrl,
       },
-    })
+      {
+        returning: true,
+        where: {
+          id: req.params.productId,
+        },
+      }
+    )
 
     if (updatedProductInfo.length !== 2) {
       res.sendStatus(404)
