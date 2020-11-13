@@ -12,7 +12,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       <Link to="/home">Home</Link>
       <Link to="/products">Shop</Link>
       {/* {fill in cart img later} */}
-      {/* <Link to="/cart">Cart</Link> */}
+      <Link to="/cart">Cart</Link>
 
       {isLoggedIn ? (
         <div>

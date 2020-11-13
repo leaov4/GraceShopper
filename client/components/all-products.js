@@ -37,8 +37,10 @@ class AllProducts extends React.Component {
             {products.map((plant) => {
               return (
                 <div className="item" key={plant.id}>
-                  <img src={plant.imageUrl} />
-                  <div>{plant.name}</div>
+                  <img src={plant.imageUrl} className="plants-img" />
+                  <div>
+                    <a href={`/products/${plant.id}`}>{plant.name}</a>
+                  </div>
                   <div>{plant.category}</div>
                   <div>{plant.price}</div>
                   <button

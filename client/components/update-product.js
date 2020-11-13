@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {updateProduct} from '../store/products'
+import {updateProduct} from '../store/single-product'
 
 class UpdateProduct extends React.Component {
   constructor() {
@@ -13,7 +13,7 @@ class UpdateProduct extends React.Component {
       season: '',
       description: '',
       inventory: null,
-      imageUrl: ''
+      imageUrl: '',
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -21,7 +21,7 @@ class UpdateProduct extends React.Component {
 
   handleChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     })
   }
 
@@ -96,13 +96,13 @@ class UpdateProduct extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  products: state.products
+const mapStateToProps = (state) => ({
+  products: state.products,
 })
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    updateProduct: product => dispatch(updateProduct(product))
+    updateProduct: (product) => dispatch(updateProduct(product)),
   }
 }
 
