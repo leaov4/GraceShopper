@@ -16,3 +16,36 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/signup', async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      where: {
+        email: req.query.email,
+      },
+    })
+    console.log('--->router user', user)
+    if (user) {
+      res.send(true)
+    } else {
+      res.send(false)
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.post('/signup', async (req, res, next) => {
+  try {
+    const {firstName, lastName, email, password} = req.body
+    const newUser = await User.create({
+      firstName,
+      lastName,
+      email,
+      password,
+    })
+    res.json(newUser)
+  } catch (err) {
+    next(err)
+  }
+})

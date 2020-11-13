@@ -32,7 +32,7 @@ class AllProducts extends React.Component {
     } else {
       return (
         <div>
-          <div>All Products</div>
+          <div className="all-title">All Products</div>
           <div className="grid-container">
             {products.map((plant) => {
               return (
