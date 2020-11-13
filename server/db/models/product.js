@@ -35,7 +35,7 @@ const Product = db.define('product', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      isIn: [['Winter', 'Summer', 'Fall', 'Spring']],
+      isIn: [['Winter', 'Summer', 'Autumn', 'Spring']],
     },
   },
   description: {

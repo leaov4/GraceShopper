@@ -33,15 +33,15 @@ export class SingleProduct extends React.Component {
   }
 }
 
-const mapState = state => {
+const mapState = (state) => {
   return {
-    product: state.singleproduct.product
+    product: state.singleproduct.product,
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
-    getSingleProduct: productId => dispatch(fetchSingleProduct(productId))
+    getSingleProduct: (productId) => dispatch(fetchSingleProduct(productId)),
   }
 }
 

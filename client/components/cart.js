@@ -1,11 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {
-  fetchCartProductsThunk,
-  changeQuantityThunk,
-  deleteCartProductThunk,
-} from '../store/cart'
+import {fetchCartProductsThunk, deleteCartProductThunk} from '../store/cart'
 export class Cart extends React.Component {
   // constructor(props) {
   //   super(props)
@@ -13,11 +9,13 @@ export class Cart extends React.Component {
   // }
 
   componentDidMount() {
+    window.localStorage.setItem('userId', 1) //this probably need to move to the logIn component
     this.props.loadCart()
   }
 
   render() {
     let cartProducts = this.props.cartProducts
+    console.log(cartProducts)
 
     return (
       <div>
@@ -25,21 +23,22 @@ export class Cart extends React.Component {
         <div className="cartProducts">
           {cartProducts.map((item) => (
             <div key={item.id}>
-              {/* or it could be productId */}
               <img src={item.imageUrl} />
               <h6>{item.name}</h6>
               <h5>{item.price}</h5>
+              <div>
+                <button type="button">-</button>
+                <h6>{item.order_product.quantity}</h6>
+                <button type="button">+</button>
+              </div>
+              <button
+                type="button"
+                onClick={() => this.props.removeCartItem(cartProducts.id)}
+              >
+                delete
+              </button>
             </div>
           ))}
-          <button type="button">-</button>
-          <h6>1</h6>
-          <button type="button">+</button>
-          <button
-            type="button"
-            onClick={() => this.props.removeCartItem(cartProducts.id)}
-          >
-            delete
-          </button>
         </div>
         <div className="checkout-bar">
           <button
@@ -61,15 +60,13 @@ export class Cart extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    cartProducts: state.cartProducts,
+    cartProducts: state.cart,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     loadCart: () => dispatch(fetchCartProductsThunk()),
-    editItemQuan: (productId, product) =>
-      dispatch(changeQuantityThunk(productId, product)),
     removeCartItem: (productId) => dispatch(deleteCartProductThunk(productId)),
   }
 }
