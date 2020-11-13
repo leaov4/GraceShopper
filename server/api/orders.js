@@ -1,12 +1,20 @@
 const router = require('express').Router()
-const {Order, Order_Product} = require('../db/models')
+const {Order, Order_Product, Product} = require('../db/models')
 module.exports = router
 
 // GET /api/orders
 router.get('/', async (req, res, next) => {
   try {
-    const orders = await Order.findAll({include: Order_Product})
-    res.json(orders)
+    const orders = await Order.findOne(
+      {include: [{model: Product}]},
+      {
+        where: {
+          userId: req.body, //hardcoded at this moment
+          orderStatus: 'in-cart',
+        },
+      }
+    )
+    res.json(orders.products)
   } catch (error) {
     next(error)
   }
