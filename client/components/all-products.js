@@ -32,15 +32,17 @@ class AllProducts extends React.Component {
     } else {
       return (
         <div>
-          <div>All Products</div>
+          <div className="all-title">All Products</div>
           <div className="grid-container">
             {products.map((plant) => {
               return (
-                <div className="item" key={plant.id}>
-                  <img src={plant.imageUrl} />
-                  <div>{plant.name}</div>
-                  <div>{plant.category}</div>
-                  <div>{plant.price}</div>
+                <div className="grid-item" key={plant.id}>
+                  <img src={plant.imageUrl} className="all-img" />
+                  <a href={`/products/${plant.id}`} className="all-name">
+                    {plant.name}
+                  </a>
+                  <div className="all-category">{plant.category}</div>
+                  <div className="all-price">{plant.price}</div>
                   <button
                     type="submit"
                     value={plant.id}
