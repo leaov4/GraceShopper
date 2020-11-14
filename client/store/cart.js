@@ -13,17 +13,17 @@ export const receiveCartProducts = (cartProducts) => {
   }
 }
 
-export const increaseQuantity = (singleCartProduct) => {
+export const increaseQuantity = (order_product) => {
   return {
     type: INCREASE_QUANTITY,
-    singleCartProduct,
+    order_product,
   }
 }
 
-export const decreaseQuantity = (singleCartProduct) => {
+export const decreaseQuantity = (order_product) => {
   return {
     type: DECREASE_QUANTITY,
-    singleCartProduct,
+    order_product,
   }
 }
 
@@ -47,13 +47,11 @@ export const fetchCartProductsThunk = () => {
   }
 }
 
-export const increaseQuantityThunk = (order_productId, singleCartProduct) => {
+export const increaseQuantityThunk = (order_product) => {
   return async (dispatch) => {
     try {
-      const {data} = await axios.put(
-        `/api/order_products/${order_productId}`,
-        singleCartProduct
-      )
+      order_product.quantity += 1
+      const {data} = await axios.put(`/api/orders_products/`, order_product)
       dispatch(increaseQuantity(data))
     } catch (error) {
       console.log(error)
@@ -61,13 +59,11 @@ export const increaseQuantityThunk = (order_productId, singleCartProduct) => {
   }
 }
 
-export const decreaseQuantityThunk = (order_productId, singleCartProduct) => {
+export const decreaseQuantityThunk = (order_product) => {
   return async (dispatch) => {
     try {
-      const {data} = await axios.put(
-        `/api/order_products/${order_productId}`,
-        singleCartProduct
-      )
+      order_product.quantity -= 1
+      const {data} = await axios.put(`/api/orders_products/`, order_product)
       dispatch(decreaseQuantity(data))
     } catch (error) {
       console.log(error)
@@ -93,7 +89,15 @@ export const deleteCartProductThunk = (order_product) => {
 }
 
 // REDUCER
-const initialState = []
+const initialState = [
+  {
+    id: 0,
+    imageUrl: '',
+    name: '',
+    price: 0,
+    order_product: {},
+  },
+]
 
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -103,17 +107,17 @@ const cartReducer = (state = initialState, action) => {
     case INCREASE_QUANTITY: {
       let updatedProducts = [...state]
       let pIdx = updatedProducts.findIndex(
-        (product) => product.id === action.product.productId
+        (item) => item.id === action.order_product.productId
       )
-      updatedProducts[pIdx].quantity += 1
+      updatedProducts[pIdx].order_product = action.order_product
       return updatedProducts
     }
     case DECREASE_QUANTITY: {
       let updatedProducts = [...state]
       let pIdx = updatedProducts.findIndex(
-        (product) => product.id === action.product.productId
+        (item) => item.id === action.order_product.productId
       )
-      updatedProducts[pIdx].quantity -= 1
+      updatedProducts[pIdx].order_product = action.order_product
       return updatedProducts
     }
     case DELETE_CART_PRODUCT: {

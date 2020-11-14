@@ -3,7 +3,7 @@ const {Order_Product} = require('../db/models')
 module.exports = router
 
 // POST /api/orders_products
-// this is to add an item from allProduct component to the cart
+// this is to add an item from allProduct component to the cart; cart-item's price will be written in the historicalPrice attribute
 router.post('/', async (req, res, next) => {
   try {
     const {orderId, productId, price} = req.body

@@ -1,7 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {fetchCartProductsThunk, deleteCartProductThunk} from '../store/cart'
+import {
+  fetchCartProductsThunk,
+  deleteCartProductThunk,
+  increaseQuantityThunk,
+  decreaseQuantityThunk,
+} from '../store/cart'
 export class Cart extends React.Component {
   // constructor(props) {
   //   super(props)
@@ -16,6 +21,12 @@ export class Cart extends React.Component {
   render() {
     let cartProducts = this.props.cartProducts
     console.log(cartProducts)
+    let totalPrice = cartProducts.reduce(
+      (currentTotal, currentItem) =>
+        currentTotal + Number(currentItem.order_product.historicalPrice),
+      0
+    )
+    //historicalPrice from database is return as a str somehow, may need to investigate why
 
     return (
       <div>
@@ -25,11 +36,22 @@ export class Cart extends React.Component {
             <div key={item.id}>
               <img src={item.imageUrl} />
               <h6>{item.name}</h6>
-              <h5>{item.price}</h5>
+              <h5>${item.order_product.historicalPrice}</h5>
               <div>
-                <button type="button">-</button>
+                <button
+                  type="button"
+                  disabled={item.order_product.quantity < 2}
+                  onClick={() => this.props.minusQ(item.order_product)}
+                >
+                  -
+                </button>
                 <h6>{item.order_product.quantity}</h6>
-                <button type="button">+</button>
+                <button
+                  type="button"
+                  onClick={() => this.props.plusQ(item.order_product)}
+                >
+                  +
+                </button>
               </div>
               <button
                 type="button"
@@ -44,14 +66,20 @@ export class Cart extends React.Component {
           <button
             type="button"
             onClick={() => {
-              history.goBack()
+              this.props.history.push('/products')
             }}
           >
             return
           </button>
-          <h2>Total: $80</h2>
-          <button type="button">checkout</button>
-          {/* might change the checkout button to link */}
+          <h2>Total: ${totalPrice}</h2>
+          <button
+            type="button"
+            onClick={() => {
+              this.props.history.push('/checkout')
+            }}
+          >
+            checkout
+          </button>
         </div>
       </div>
     )
@@ -61,7 +89,6 @@ export class Cart extends React.Component {
 const mapStateToProps = (state) => {
   return {
     cartProducts: state.cart,
-    cart: state.cart,
   }
 }
 
@@ -70,6 +97,8 @@ const mapDispatchToProps = (dispatch) => {
     loadCart: () => dispatch(fetchCartProductsThunk()),
     removeCartItem: (order_product) =>
       dispatch(deleteCartProductThunk(order_product)),
+    plusQ: (order_product) => dispatch(increaseQuantityThunk(order_product)),
+    minusQ: (order_product) => dispatch(decreaseQuantityThunk(order_product)),
   }
 }
 
