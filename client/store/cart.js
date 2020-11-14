@@ -39,7 +39,7 @@ export const fetchCartProductsThunk = () => {
   return async (dispatch) => {
     try {
       const userId = window.localStorage.getItem('userId')
-      const {data} = await axios.get('/api/orders', userId)
+      const {data} = await axios.get('/api/orders/cart', userId)
       dispatch(receiveCartProducts(data))
     } catch (error) {
       console.log(error)
@@ -75,11 +75,17 @@ export const decreaseQuantityThunk = (order_productId, singleCartProduct) => {
   }
 }
 
-export const deleteCartProductThunk = (productId, orderId) => {
+export const deleteCartProductThunk = (order_product) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`/api/orders_products/${productId}/${orderId}`) //route might be different
-      dispatch(deleteCartProduct(productId)) //might change it
+      await axios.delete(`/api/orders_products`, {
+        data: {
+          orderId: order_product.orderId,
+          productId: order_product.productId,
+        },
+      })
+      console.log(`item: productId ${order_product.productId} has been deleted`)
+      dispatch(deleteCartProduct(order_product.productId))
     } catch (error) {
       console.log(error)
     }
@@ -93,6 +99,7 @@ const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_CART_PRODUCTS:
       return action.cartProducts
+    // return action
     case INCREASE_QUANTITY: {
       let updatedProducts = [...state]
       let pIdx = updatedProducts.findIndex(
@@ -111,7 +118,7 @@ const cartReducer = (state = initialState, action) => {
     }
     case DELETE_CART_PRODUCT: {
       const remainingProducts = state.filter(
-        (product) => product.id !== action.productId // need to double check all attributes' name
+        (item) => item.id !== action.productId
       )
       return remainingProducts
     }

@@ -33,7 +33,7 @@ export class Cart extends React.Component {
               </div>
               <button
                 type="button"
-                onClick={() => this.props.removeCartItem(cartProducts.id)}
+                onClick={() => this.props.removeCartItem(item.order_product)}
               >
                 delete
               </button>
@@ -61,13 +61,15 @@ export class Cart extends React.Component {
 const mapStateToProps = (state) => {
   return {
     cartProducts: state.cart,
+    cart: state.cart,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     loadCart: () => dispatch(fetchCartProductsThunk()),
-    removeCartItem: (productId) => dispatch(deleteCartProductThunk(productId)),
+    removeCartItem: (order_product) =>
+      dispatch(deleteCartProductThunk(order_product)),
   }
 }
 
