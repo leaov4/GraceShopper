@@ -2,6 +2,14 @@ const router = require('express').Router()
 const {Product} = require('../db/models')
 module.exports = router
 
+const adminsOnly = (req, res, next) => {
+  if (!req.user.isAdmin) {
+    const err = new Error(`You aren't admin, this is not allowed.`)
+    err.status = 401
+    return next(err)
+  }
+}
+
 // GET /api/products
 router.get('/', async (req, res, next) => {
   try {
@@ -13,7 +21,7 @@ router.get('/', async (req, res, next) => {
 })
 
 // GET /api/products/:productId
-router.get('/:productId', async (req, res, next) => {
+router.get('/:productId', adminsOnly, async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.productId)
     res.json(product)
@@ -23,6 +31,7 @@ router.get('/:productId', async (req, res, next) => {
 })
 
 // POST /api/products
+//* need to add gatekeeping middleware
 router.post('/', async (req, res, next) => {
   try {
     const {
@@ -52,7 +61,8 @@ router.post('/', async (req, res, next) => {
 })
 
 // DELETE /api/products/:productId
-router.delete('/:productId', async (req, res, next) => {
+//* need to add gatekeeping middleware
+router.delete('/:productId', adminsOnly, async (req, res, next) => {
   try {
     await Product.destroy({
       where: {
@@ -66,7 +76,8 @@ router.delete('/:productId', async (req, res, next) => {
 })
 
 // PUT /api/products/:productId
-router.put('/:productId', async (req, res, next) => {
+//* need to add gatekeeping middleware
+router.put('/:productId', adminsOnly, async (req, res, next) => {
   try {
     const {
       name,

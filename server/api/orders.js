@@ -40,7 +40,7 @@ router.get('/cart', async (req, res, next) => {
 // this is for creating initial cart at sign up and checkout
 router.post('/', async (req, res, next) => {
   try {
-    const {userId} = req.body
+    const {userId} = req.body //this might change to req.user
     const newOrder = await Order.create({orderStatus: 'in-cart', userId})
     res.json(newOrder)
     //! newOrder contains orderId, we need to use localStorage to store orderId when it is created

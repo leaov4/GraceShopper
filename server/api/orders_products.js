@@ -21,6 +21,7 @@ router.post('/', async (req, res, next) => {
 
 //DELETE /api/orders_products/
 // this is to delete item in the cart
+//* might need to add gatekeeping middleware
 router.delete('/', async (req, res, next) => {
   try {
     await Order_Product.destroy({
@@ -37,6 +38,7 @@ router.delete('/', async (req, res, next) => {
 
 // PUT /api/orders_products/
 // this is to change the quantity in the cart
+//* might need to add gatekeeping middleware
 router.put('/', async (req, res, next) => {
   try {
     const {quantity, orderId, productId} = req.body
