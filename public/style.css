@@ -1,5 +1,8 @@
 body {
-  font-family: sans-serif;
+  font-family: Verdana, Arial, Sans-Serif;
+  background-image: url('https://img.freepik.com/free-vector/green-leaves-frame-abstract-background_52683-27115.jpg?size=626&ext=jpg');
+  /* background-image: url('https://images.unsplash.com/photo-1550147760-44c9966d6bc7?ixlib=rb-1.2.1&w=1000&q=80'); */
+  background-color: #fcf2e5;
 }
 
 a {
@@ -20,7 +23,102 @@ form div {
   display: inline-block;
 }
 
-.plants-img {
-  width: 300px;
-  height: auto;
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.grid-item {
+  flex-basis: 19%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(219, 165, 182, 0.75);
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  box-shadow: 10px 10px 8px #888888;
+}
+
+.grid-item:nth-child(5n) {
+  flex-basis: 44.5%;
+  display: flex;
+  flex-direction: row;
+  align-self: stretch;
+  justify-content: space-between;
+  background-image: url('https://images.unsplash.com/photo-1550147760-44c9966d6bc7?ixlib=rb-1.2.1&w=1000&q=80');
+}
+
+.grid-item:nth-child(5n) .all-img {
+  width: 56%;
+  height: 56%;
+  align-self: center;
+}
+
+.grid-item:nth-child(5n) .all-info {
+  align-self: center;
+  background-color: rgba(252, 242, 229, 0.6);
+  border-bottom: solid;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.grid-item:nth-child(5n) .all-x {
+  align-self: flex-start;
+}
+
+.grid-item:nth-child(5n) .all-name {
+  font-size: 300%;
+}
+
+.grid-item:nth-child(5n) .all-category {
+  font-size: 125%;
+  margin-bottom: 20px;
+}
+
+.grid-item:nth-child(5n) .all-price {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-size: 150%;
+}
+
+.grid-item:nth-child(5n) .all-descrip {
+  display: inline-flex;
+  border-top: solid;
+  border-bottom: solid;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.all-img {
+  width: 100%;
+  height: 100%;
+}
+
+.all-info {
+  background-color: rgb(218, 182, 191, 0.8);
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-top: solid;
+  border-bottom: solid;
+}
+
+.all-name {
+  font-size: 125%;
+  color: black;
+}
+
+.all-category {
+  font-style: italic;
+}
+
+.all-descrip {
+  display: none;
 }
