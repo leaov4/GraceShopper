@@ -1,19 +1,28 @@
 const router = require('express').Router()
-const {Order_Product} = require('../db/models')
+const {Order_Product, Order, Product} = require('../db/models')
 module.exports = router
 
 // POST /api/orders_products
-// this is to add an item from allProduct component to the cart; cart-item's price will be written in the historicalPrice attribute
+// this is to add an item from singleProduct component to the cart; cart-item's price will be written in the historicalPrice attribute
 router.post('/', async (req, res, next) => {
   try {
-    const {orderId, productId, price} = req.body
+    const {productId, price} = req.body
+
+    const cart = await Order.findOne({
+      where: {
+        userId: req.user.dataValues.id, //this is the userId from passport middlewear
+        orderStatus: 'in-cart',
+      },
+    })
+
     const newOrder_Product = await Order_Product.create({
       quantity: 1,
-      orderId,
+      orderId: cart.id,
       productId,
       historicalPrice: price,
     })
-    res.json(newOrder_Product)
+
+    res.sendStatus(201)
   } catch (error) {
     next(error)
   }
@@ -24,10 +33,11 @@ router.post('/', async (req, res, next) => {
 //* might need to add gatekeeping middleware
 router.delete('/', async (req, res, next) => {
   try {
+    const {orderId, productId} = req.body
     await Order_Product.destroy({
       where: {
-        orderId: req.body.orderId,
-        productId: req.body.productId,
+        orderId: orderId,
+        productId: productId,
       },
     })
     res.sendStatus(204)

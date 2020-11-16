@@ -4,6 +4,7 @@ const RECEIVE_CART_PRODUCTS = 'RECEIVE_CART_PRODUCTS'
 const INCREASE_QUANTITY = 'INCREASE_QUANTITY'
 const DECREASE_QUANTITY = 'DECREASE_QUANTITY'
 const DELETE_CART_PRODUCT = 'DELETE_CART_PRODUCT'
+const UPDATE_STATUS_NEW_CART = 'UPDATE_STATUS_NEW_CART'
 
 //ACTION CREATOR
 export const receiveCartProducts = (cartProducts) => {
@@ -34,12 +35,18 @@ export const deleteCartProduct = (productId) => {
   }
 }
 
+export const updateStatusCreateNewCart = (newCart) => {
+  return {
+    type: UPDATE_STATUS_NEW_CART,
+    newCart,
+  }
+}
+
 //THUNK
 export const fetchCartProductsThunk = () => {
   return async (dispatch) => {
     try {
-      const userId = window.localStorage.getItem('userId')
-      const {data} = await axios.get('/api/orders/cart', userId)
+      const {data} = await axios.get('/api/orders/cart')
       dispatch(receiveCartProducts(data))
     } catch (error) {
       console.log(error)
@@ -80,10 +87,21 @@ export const deleteCartProductThunk = (order_product) => {
           productId: order_product.productId,
         },
       })
-      console.log(`item: productId ${order_product.productId} has been deleted`)
       dispatch(deleteCartProduct(order_product.productId))
     } catch (error) {
       console.log(error)
+    }
+  }
+}
+
+export const updateCartStatusThunk = (orderId) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`/api/orders/${orderId}`)
+      const {data} = await axios.post(`/api/orders`)
+      dispatch(updateStatusCreateNewCart(data))
+    } catch (err) {
+      console.log(err)
     }
   }
 }
@@ -102,8 +120,8 @@ const initialState = [
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_CART_PRODUCTS:
-      return action.cartProducts
-    // return action
+      return action.cartProducts.length ? action.cartProducts : initialState
+
     case INCREASE_QUANTITY: {
       let updatedProducts = [...state]
       let pIdx = updatedProducts.findIndex(
@@ -124,9 +142,11 @@ const cartReducer = (state = initialState, action) => {
       const remainingProducts = state.filter(
         (item) => item.id !== action.productId
       )
-      return remainingProducts
+      return remainingProducts.length ? remainingProducts : initialState
     }
-
+    case UPDATE_STATUS_NEW_CART: {
+      return initialState
+    }
     default:
       return state
   }
