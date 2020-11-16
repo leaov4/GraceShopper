@@ -1,12 +1,26 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchSingleProduct, updateProduct} from '../store/single-product'
+import {
+  fetchSingleProduct,
+  addedProductStatus,
+  updateProduct,
+  addProductToCartThunk,
+} from '../store/single-product'
 import UpdateProduct from './update-product'
+import {fetchCartProductsThunk} from '../store/cart'
 
 export class SingleProduct extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id
     this.props.getSingleProduct(id)
+  }
+
+  async handleAddProduct() {
+    await this.props.addProductToCart(
+      this.props.product.id,
+      this.props.product.price
+    )
+    this.props.getUpdatedCart()
   }
 
   render() {
@@ -23,7 +37,11 @@ export class SingleProduct extends React.Component {
           <h4 className="p-price">{product.price}</h4>
         </div>
         <div>
-          <button className="p-addcart" type="button">
+          <button
+            className="p-addcart"
+            type="button"
+            onClick={() => this.handleAddProduct()}
+          >
             Add to Cart
           </button>
         </div>
@@ -36,12 +54,19 @@ export class SingleProduct extends React.Component {
 const mapState = (state) => {
   return {
     product: state.singleproduct.product,
+    cart: state.cart,
   }
 }
+
+//on our add product button, onClick call addProductToCart & getUpdatedCart
 
 const mapDispatch = (dispatch) => {
   return {
     getSingleProduct: (productId) => dispatch(fetchSingleProduct(productId)),
+    addProductToCart: (productId, price) =>
+      dispatch(addProductToCartThunk(productId, price)),
+    getUpdatedCart: () => dispatch(fetchCartProductsThunk()),
+    getProductStatus: () => dispatch(addedProductStatus()),
   }
 }
 
