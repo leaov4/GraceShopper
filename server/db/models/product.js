@@ -9,12 +9,17 @@ const Product = db.define('product', {
   price: {
     type: Sequelize.DECIMAL(20, 2),
     allowNull: false,
+    validate: {
+      min: 0.99,
+      max: 99.0,
+    },
   },
   inventory: {
     type: Sequelize.INTEGER,
     defaultValue: 1,
     validate: {
       min: 1,
+      max: 99,
     },
   },
   category: {

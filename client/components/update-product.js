@@ -7,13 +7,8 @@ class UpdateProduct extends React.Component {
     super()
     this.state = {
       name: '',
-      price: null,
-      inventory: null,
-      // category: '',
-      // climate: '',
-      // season: '',
-      // description: '',
-      // imageUrl: '',
+      price: '',
+      inventory: '',
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -25,8 +20,19 @@ class UpdateProduct extends React.Component {
     })
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
+    event.preventDefault()
+    const name = this.state.name
+    const price = parseInt(this.state.price, 10)
+    const inventory = parseInt(this.state.inventory, 10)
+
     this.props.updateProduct(this.state, this.props.id)
+    this.setState({
+      name: price < 1 || inventory < 1 ? name : '',
+      price: price < 1 ? 'must be valid number' : inventory < 1 ? price : '',
+      inventory:
+        inventory < 1 ? 'must be valid number' : price < 1 ? inventory : '',
+    })
   }
 
   render() {

@@ -59,6 +59,7 @@ export const increaseQuantityThunk = (order_product) => {
     try {
       order_product.quantity += 1
       const {data} = await axios.put(`/api/orders_products/`, order_product)
+
       dispatch(increaseQuantity(data))
     } catch (error) {
       console.log(error)
