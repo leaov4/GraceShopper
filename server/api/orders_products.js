@@ -1,29 +1,43 @@
 const router = require('express').Router()
-const {Order_Product} = require('../db/models')
+const {Order_Product, Order, Product} = require('../db/models')
 module.exports = router
 
 // POST /api/orders_products
+// this is to add an item from singleProduct component to the cart; cart-item's price will be written in the historicalPrice attribute
 router.post('/', async (req, res, next) => {
   try {
-    const {quantity, orderId, productId, historicalPrice} = req.body
-    const newOrder_Product = await Order_Product.create({
-      quantity,
-      orderId,
-      productId,
-      historicalPrice,
+    const {productId, price} = req.body
+
+    const cart = await Order.findOne({
+      where: {
+        userId: req.user.dataValues.id, //this is the userId from passport middlewear
+        orderStatus: 'in-cart',
+      },
     })
-    res.json(newOrder_Product)
+
+    const newOrder_Product = await Order_Product.create({
+      quantity: 1,
+      orderId: cart.id,
+      productId,
+      historicalPrice: price,
+    })
+
+    res.sendStatus(201)
   } catch (error) {
     next(error)
   }
 })
 
-//DELETE /api/orders_products/:orders_productsId
-router.delete('/:order_productId', async (req, res, next) => {
+//DELETE /api/orders_products/
+// this is to delete item in the cart
+//* might need to add gatekeeping middleware
+router.delete('/', async (req, res, next) => {
   try {
+    const {orderId, productId} = req.body
     await Order_Product.destroy({
       where: {
-        id: req.params.orders_productsId,
+        orderId: orderId,
+        productId: productId,
       },
     })
     res.sendStatus(204)
@@ -32,16 +46,19 @@ router.delete('/:order_productId', async (req, res, next) => {
   }
 })
 
-// PUT /api/orders_products/:orders_productsId
-router.put('/:order_productId', async (req, res, next) => {
+// PUT /api/orders_products/
+// this is to change the quantity in the cart
+//* might need to add gatekeeping middleware
+router.put('/', async (req, res, next) => {
   try {
-    const {quantity, orderId, productId, historicalPrice} = req.body
+    const {quantity, orderId, productId} = req.body
     const updatedOrderProductInfo = await Order_Product.update(
-      {quantity, orderId, productId, historicalPrice},
+      {quantity},
       {
         returning: true,
         where: {
-          id: req.params.order_productId,
+          orderId,
+          productId,
         },
       }
     )

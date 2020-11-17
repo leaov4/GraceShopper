@@ -20,6 +20,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
+          <a href="/user">User</a>
         </div>
       ) : (
         <div>
@@ -28,6 +29,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         </div>
       )}
     </nav>
+
     <hr />
   </div>
 )

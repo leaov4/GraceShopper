@@ -19,6 +19,12 @@ export const updatedProduct = (newProduct) => {
   }
 }
 
+export const addedProductStatus = (status) => {
+  return {
+    status: status,
+  }
+}
+
 //THUNK
 export const fetchSingleProduct = (productId) => async (dispatch) => {
   try {
@@ -30,12 +36,25 @@ export const fetchSingleProduct = (productId) => async (dispatch) => {
   }
 }
 
-export const updateProduct = (product) => async (dispatch) => {
+export const updateProduct = (product, productId) => async (dispatch) => {
   try {
-    const {data} = await axios.put(`/api/products/${product.id}`, product)
+    const {data} = await axios.put(`/api/products/${productId}`, product)
     dispatch(updatedProduct(data))
   } catch (err) {
     console.log('There was an error updating product.')
+  }
+}
+
+export const addProductToCartThunk = (productId, price) => async (dispatch) => {
+  try {
+    const {data} = await axios.post('/api/orders_products', {
+      productId,
+      price,
+    })
+    // dispatch(addedProductStatus(data.status))
+    //how does status come through ? is it in our data object?
+  } catch (err) {
+    console.log('There was an error adding product.')
     console.error(err)
   }
 }

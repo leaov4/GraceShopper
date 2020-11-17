@@ -34,6 +34,7 @@ export const fetchProducts = () => async (dispatch) => {
   }
 }
 
+//ONLY FOR ADMIN
 export const destroyProduct = (id) => async (dispatch) => {
   try {
     await axios.delete(`/api/products/${id}`)
@@ -43,7 +44,9 @@ export const destroyProduct = (id) => async (dispatch) => {
   }
 }
 
+//ONLY FOR ADMIN
 export const createProduct = (product) => async (dispatch) => {
+  console.log(product)
   try {
     const {data} = await axios.post('/api/products', product)
     dispatch(addProduct(data))

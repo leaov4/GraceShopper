@@ -20,12 +20,14 @@ class AllProducts extends React.Component {
     }
   }
 
-  handleRemove(event) {
-    this.props.destroyProduct(event.target.value)
+  async handleRemove(event) {
+    await this.props.destroyProduct(event.target.value)
+    this.props.fetchProducts()
   }
 
   render() {
     const products = this.props.products
+    const admin = this.props.admin
 
     if (this.state.hasError || this.state.props === null) {
       return <div>oops! something went wrong here</div>
@@ -43,18 +45,22 @@ class AllProducts extends React.Component {
                   </div>
                   <div>{plant.category}</div>
                   <div>{plant.price}</div>
-                  <button
-                    type="submit"
-                    value={plant.id}
-                    onClick={this.handleRemove}
-                  >
-                    X
-                  </button>
+                  {admin ? (
+                    <button
+                      type="submit"
+                      value={plant.id}
+                      onClick={this.handleRemove}
+                    >
+                      X
+                    </button>
+                  ) : (
+                    <div />
+                  )}
                 </div>
               )
             })}
           </div>
-          <AddProduct />
+          {admin ? <AddProduct /> : <div />}
         </div>
       )
     }
@@ -63,6 +69,7 @@ class AllProducts extends React.Component {
 
 const mapStateToProps = (state) => ({
   products: state.products,
+  admin: state.user.admin,
 })
 
 const mapDispatchToProps = (dispatch) => {
