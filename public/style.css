@@ -13,25 +13,20 @@ label {
   display: block;
 }
 
-/* nav a {
-  display: inline-block;
-  margin: 1em;
-} */
-
-nav a:hover {
-  background-image: url('https://lh3.googleusercontent.com/proxy/3SJn7ngMRz0l7wtjyacpAb_LFPDVuHLLkQ4c8E9YKlUAj9RompJSqXdXCgFSKBnE1Z7F89noajUTDgZES_4GqJORZYQBDFmjOYpRsfwn0IQQKWokt-JjpqTMHrwoEKsZIg');
-  background-size: 130px 85px;
-  background-position: center top;
-  background-repeat: no-repeat;
-  color: white;
-}
-
 form div {
   margin: 1em;
   display: inline-block;
 }
 
 /* NAV BAR */
+
+nav a:hover {
+  background-image: url('https://lh3.googleusercontent.com/proxy/vRWmyaVnV3qJbb6BJiaydyqL-8d43gvJEKncXdisyMgxXfxcE3jJPi1Q-7k8YdxUT5tNEzN-P8nC0EBpMif7x7Yao_JtnsCeZuR6OMg49oVoXJ0MvwIDjY3sXH4is8g0AA');
+  background-size: 143px 85px;
+  background-position: center top;
+  background-repeat: no-repeat;
+  color: white;
+}
 
 nav {
   display: flex;
@@ -73,6 +68,22 @@ nav .logo {
   padding: 20px;
   padding-top: 30px;
   padding-left: 30px;
+  padding-right: 45px;
+  color: black;
+}
+
+.nav-logged {
+  padding: 20px;
+  padding-top: 30px;
+  padding-left: 30px;
+  padding-right: 35px;
+  color: black;
+}
+
+/* .nav-cart {
+  padding: 20px;
+  padding-top: 30px;
+  padding-left: 30px;
   padding-right: 35px;
   color: black;
   text-align: center;
@@ -84,7 +95,7 @@ nav .logo {
   padding-left: 35px;
   padding-right: 30px;
   color: black;
-}
+} */
 
 /* ALL PRODUCTS */
 
