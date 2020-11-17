@@ -4,11 +4,16 @@ const {Product, Order_Product} = require('../db/models')
 module.exports = router
 
 const adminsOnly = (req, res, next) => {
-  console.log('req.user', req.user)
-  if (!req.user.admin) {
-    const err = new Error(`You aren't admin, this is not allowed.`)
-    err.status = 401
-    return next(err)
+  console.log('here', req.user.admin)
+  try {
+    if (!req.user.admin) {
+      const err = new Error(`You aren't admin, this is not allowed.`)
+      err.status = 401
+      return next(err)
+    }
+    next()
+  } catch (err) {
+    console.log(err)
   }
 }
 
