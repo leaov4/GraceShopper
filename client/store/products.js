@@ -15,17 +15,17 @@ const initialState = []
 /**
  * ACTION CREATORS
  */
-const getProducts = (products) => ({type: GET_PRODUCTS, products})
+const getProducts = products => ({type: GET_PRODUCTS, products})
 
-const deleteProduct = (id) => ({type: DELETE_PRODUCT, id})
+const deleteProduct = id => ({type: DELETE_PRODUCT, id})
 
-const addProduct = (product) => ({type: ADD_PRODUCT, product})
+const addProduct = product => ({type: ADD_PRODUCT, product})
 
 /**
  * THUNK CREATORS
  */
 
-export const fetchProducts = () => async (dispatch) => {
+export const fetchProducts = () => async dispatch => {
   try {
     const {data} = await axios.get('/api/products')
     dispatch(getProducts(data))
@@ -34,7 +34,8 @@ export const fetchProducts = () => async (dispatch) => {
   }
 }
 
-export const destroyProduct = (id) => async (dispatch) => {
+//ONLY FOR ADMIN
+export const destroyProduct = id => async dispatch => {
   try {
     await axios.delete(`/api/products/${id}`)
     dispatch(deleteProduct(id))
@@ -43,7 +44,9 @@ export const destroyProduct = (id) => async (dispatch) => {
   }
 }
 
-export const createProduct = (product) => async (dispatch) => {
+//ONLY FOR ADMIN
+export const createProduct = product => async dispatch => {
+  console.log(product)
   try {
     const {data} = await axios.post('/api/products', product)
     dispatch(addProduct(data))
@@ -56,12 +59,12 @@ export const createProduct = (product) => async (dispatch) => {
  * REDUCER
  */
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case GET_PRODUCTS:
       return action.products
     case DELETE_PRODUCT:
-      return [...state].filter((product) => !product.includes(action.id))
+      return [...state].filter(product => !product.includes(action.id))
     case ADD_PRODUCT:
       return [...state].concat(action.product)
     default:

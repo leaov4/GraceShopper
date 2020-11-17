@@ -48,7 +48,7 @@ class AddProduct extends React.Component {
             onChange={this.handleChange}
             value={this.state.description}
           />
-          <label htmlFor="category">Description:</label>
+          <label htmlFor="category">Category:</label>
           <input
             name="category"
             type="text"
@@ -90,6 +90,7 @@ class AddProduct extends React.Component {
             onChange={this.handleChange}
             value={this.state.inventory}
           />
+          <button type="submit">Submit</button>
         </form>
       </>
     )

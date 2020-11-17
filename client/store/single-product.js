@@ -5,22 +5,22 @@ const SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCT'
 const UPDATED_PRODUCT = 'UPDATED_PRODUCT'
 
 //ACTION CREATOR
-export const setSingleProduct = (product) => {
+export const setSingleProduct = product => {
   return {
     type: SET_SINGLE_PRODUCT,
-    product,
+    product
   }
 }
 
-export const updatedProduct = (newProduct) => {
+export const updatedProduct = newProduct => {
   return {
     type: UPDATED_PRODUCT,
-    newProduct,
+    newProduct
   }
 }
 
 //THUNK
-export const fetchSingleProduct = (productId) => async (dispatch) => {
+export const fetchSingleProduct = productId => async dispatch => {
   try {
     const {data: product} = await axios.get(`/api/products/${productId}`)
     dispatch(setSingleProduct(product))
@@ -30,22 +30,21 @@ export const fetchSingleProduct = (productId) => async (dispatch) => {
   }
 }
 
-export const updateProduct = (product) => async (dispatch) => {
+export const updateProduct = (product, productId) => async dispatch => {
   try {
-    const {data} = await axios.put(`/api/products/${product.id}`, product)
+    const {data} = await axios.put(`/api/products/${productId}`, product)
     dispatch(updatedProduct(data))
   } catch (err) {
     console.log('There was an error updating product.')
-    console.error(err)
   }
 }
 
 //REDUCER
 const initialState = {
-  product: {},
+  product: {}
 }
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case SET_SINGLE_PRODUCT:
       return {...state, product: action.product}

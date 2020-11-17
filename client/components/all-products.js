@@ -7,7 +7,7 @@ class AllProducts extends React.Component {
   constructor() {
     super()
     this.state = {
-      hasError: false,
+      hasError: false
     }
     this.handleRemove = this.handleRemove.bind(this)
   }
@@ -26,6 +26,7 @@ class AllProducts extends React.Component {
 
   render() {
     const products = this.props.products
+    const admin = this.props.admin
 
     if (this.state.hasError || this.state.props === null) {
       return <div>oops! something went wrong here</div>
@@ -34,7 +35,7 @@ class AllProducts extends React.Component {
         <div>
           <div className="all-title">All Products</div>
           <div className="grid-container">
-            {products.map((plant) => {
+            {products.map(plant => {
               return (
                 <div className="item" key={plant.id}>
                   <img src={plant.imageUrl} className="plants-img" />
@@ -43,32 +44,37 @@ class AllProducts extends React.Component {
                   </div>
                   <div>{plant.category}</div>
                   <div>{plant.price}</div>
-                  <button
-                    type="submit"
-                    value={plant.id}
-                    onClick={this.handleRemove}
-                  >
-                    X
-                  </button>
+                  {admin ? (
+                    <button
+                      type="submit"
+                      value={plant.id}
+                      onClick={this.handleRemove}
+                    >
+                      X
+                    </button>
+                  ) : (
+                    <div />
+                  )}
                 </div>
               )
             })}
           </div>
-          <AddProduct />
+          {admin ? <AddProduct /> : <div />}
         </div>
       )
     }
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   products: state.products,
+  admin: state.user.admin
 })
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     fetchProducts: () => dispatch(fetchProducts()),
-    destroyProduct: (id) => dispatch(destroyProduct(id)),
+    destroyProduct: id => dispatch(destroyProduct(id))
   }
 }
 

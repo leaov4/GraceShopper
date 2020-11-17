@@ -359,13 +359,15 @@ const userData = [
     firstName: 'Susan',
     lastName: 'Fernson',
     email: 'the.famous.plant.lady@gmail.com',
-    password: 'IlooovePLANTS1234'
+    password: 'IlooovePLANTS1234',
+    admin: true
   },
   {
     firstName: 'Frank',
     lastName: 'Berries',
     email: 'ferntastic@gmail.com',
-    password: 'plants~rocknroll!'
+    password: 'plants~rocknroll!',
+    admin: true
   },
   {
     firstName: 'Guadalupe',
@@ -432,6 +434,13 @@ const userData = [
     lastName: 'Clewell',
     email: 'erin@gmail.com',
     password: 'erin1234'
+  },
+  {
+    firstName: 'Lea',
+    lastName: 'Ov',
+    email: 'love@gmail.com',
+    password: 'love',
+    admin: true
   }
 ]
 

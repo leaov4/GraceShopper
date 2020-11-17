@@ -8,12 +8,12 @@ class UpdateProduct extends React.Component {
     this.state = {
       name: '',
       price: null,
-      category: '',
-      climate: '',
-      season: '',
-      description: '',
-      inventory: null,
-      imageUrl: '',
+      inventory: null
+      // category: '',
+      // climate: '',
+      // season: '',
+      // description: '',
+      // imageUrl: '',
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -21,13 +21,12 @@ class UpdateProduct extends React.Component {
 
   handleChange(event) {
     this.setState({
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value
     })
   }
 
-  handleSubmit(event) {
-    event.preventDefault()
-    this.props.updateProduct(this.state)
+  handleSubmit() {
+    this.props.updateProduct(this.state, this.props.id)
   }
 
   render() {
@@ -41,7 +40,21 @@ class UpdateProduct extends React.Component {
             onChange={this.handleChange}
             value={this.state.name}
           />
-          <label htmlFor="description">Description:</label>
+          <label htmlFor="inventory">Inventory:</label>
+          <input
+            name="inventory"
+            type="text"
+            onChange={this.handleChange}
+            value={this.state.inventory}
+          />
+          <label htmlFor="price">Price:</label>
+          <input
+            name="price"
+            type="text"
+            onChange={this.handleChange}
+            value={this.state.price}
+          />
+          {/* <label htmlFor="description">Description:</label>
           <input
             name="description"
             type="text"
@@ -62,13 +75,6 @@ class UpdateProduct extends React.Component {
             onChange={this.handleChange}
             value={this.state.imageUrl}
           />
-          <label htmlFor="price">Price:</label>
-          <input
-            name="price"
-            type="text"
-            onChange={this.handleChange}
-            value={this.state.price}
-          />
           <label htmlFor="climate">Climate:</label>
           <input
             name="climate"
@@ -82,27 +88,21 @@ class UpdateProduct extends React.Component {
             type="text"
             onChange={this.handleChange}
             value={this.state.season}
-          />
-          <label htmlFor="inventory">Inventory:</label>
-          <input
-            name="inventory"
-            type="text"
-            onChange={this.handleChange}
-            value={this.state.inventory}
-          />
+          /> */}
+          <button type="submit">Submit</button>
         </form>
       </>
     )
   }
 }
 
-const mapStateToProps = (state) => ({
-  products: state.products,
+const mapStateToProps = state => ({
+  products: state.products
 })
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    updateProduct: (product) => dispatch(updateProduct(product)),
+    updateProduct: (product, x) => dispatch(updateProduct(product, x))
   }
 }
 

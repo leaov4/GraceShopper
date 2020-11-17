@@ -11,6 +11,7 @@ export class SingleProduct extends React.Component {
 
   render() {
     const product = this.props.product
+
     return (
       <div>
         <div className="single-product">
@@ -27,21 +28,22 @@ export class SingleProduct extends React.Component {
             Add to Cart
           </button>
         </div>
-        <UpdateProduct />
+        {this.props.admin ? <UpdateProduct id={product.id} /> : <div />}
       </div>
     )
   }
 }
 
-const mapState = (state) => {
+const mapState = state => {
   return {
     product: state.singleproduct.product,
+    admin: state.user.admin
   }
 }
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = dispatch => {
   return {
-    getSingleProduct: (productId) => dispatch(fetchSingleProduct(productId)),
+    getSingleProduct: productId => dispatch(fetchSingleProduct(productId))
   }
 }
 
