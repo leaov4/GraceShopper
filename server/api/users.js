@@ -43,7 +43,6 @@ router.get('/signup', async (req, res, next) => {
         email: req.query.email,
       },
     })
-    console.log('--->router user', user)
     if (user) {
       res.send(true)
     } else {
