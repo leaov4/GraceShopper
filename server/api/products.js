@@ -3,11 +3,8 @@ const {Product, Order_Product} = require('../db/models')
 //const { default: admin } = require('../../client/components/admin')
 module.exports = router
 
-//when adminsonly called on update products, the req is the the product, not user, therefore
-//it doesn't work on product routes, so I removed from post, delete. put.
-//however, these routes can only be accessed from a component shown if user is an admin
 const adminsOnly = (req, res, next) => {
-  console.log('here', req)
+  console.log('req.user', req.user)
   if (!req.user.admin) {
     const err = new Error(`You aren't admin, this is not allowed.`)
     err.status = 401
@@ -37,7 +34,7 @@ router.get('/:productId', async (req, res, next) => {
 
 // POST /api/products
 //* need to add gatekeeping middleware
-router.post('/', async (req, res, next) => {
+router.post('/', adminsOnly, async (req, res, next) => {
   try {
     const {
       name,
@@ -66,7 +63,7 @@ router.post('/', async (req, res, next) => {
 })
 
 // DELETE /api/products/:productId
-router.delete('/:productId', async (req, res, next) => {
+router.delete('/:productId', adminsOnly, async (req, res, next) => {
   try {
     await Product.destroy({
       where: {
@@ -80,7 +77,7 @@ router.delete('/:productId', async (req, res, next) => {
 })
 
 // PUT /api/products/:productId
-router.put('/:productId', async (req, res, next) => {
+router.put('/:productId', adminsOnly, async (req, res, next) => {
   try {
     const {
       name,
