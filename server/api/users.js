@@ -2,8 +2,22 @@ const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
 
+const adminsOnly = (req, res, next) => {
+  console.log('here', req.user.admin)
+  try {
+    if (!req.user.admin) {
+      const err = new Error(`You aren't admin, this is not allowed.`)
+      err.status = 401
+      return next(err)
+    }
+    next()
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 // GET /api/users
-router.get('/', async (req, res, next) => {
+router.get('/', adminsOnly, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and email fields - even though
@@ -18,11 +32,10 @@ router.get('/', async (req, res, next) => {
 })
 
 //GET /api/users/admin
-//ADMIN GET REQUEST, ONLY ADMINS GET ALL USER DATA, WORKS HERE
+//ADMIN GET REQUEST, ONLY ADMINS GET ALL USER DATA
 router.get('/admin', async (req, res, next) => {
   try {
-    //checks for admin here, this works!
-    console.log('req.user.admin', req.user.admin) //true or false
+    console.log('req.user.admin', req.user.admin)
     if (!req.user.admin) {
       const err = new Error(`You aren't admin, this is not allowed.`)
       err.status = 401
