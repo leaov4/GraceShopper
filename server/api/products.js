@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Product} = require('../db/models')
+const {Product, Order_Product} = require('../db/models')
 //const { default: admin } = require('../../client/components/admin')
 module.exports = router
 
