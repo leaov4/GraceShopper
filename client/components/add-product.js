@@ -28,6 +28,16 @@ class AddProduct extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
     this.props.createProduct(this.state)
+    this.setState({
+      name: '',
+      price: '',
+      category: '',
+      climate: '',
+      season: '',
+      description: '',
+      inventory: '',
+      imageUrl: ''
+    })
   }
 
   render() {

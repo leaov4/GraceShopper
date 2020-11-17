@@ -20,8 +20,9 @@ class AllProducts extends React.Component {
     }
   }
 
-  handleRemove(event) {
-    this.props.destroyProduct(event.target.value)
+  async handleRemove(event) {
+    await this.props.destroyProduct(event.target.value)
+    this.props.fetchProducts()
   }
 
   render() {
