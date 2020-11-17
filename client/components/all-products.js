@@ -34,7 +34,6 @@ class AllProducts extends React.Component {
     } else {
       return (
         <div>
-          <div className="all-title">All Products</div>
           <div className="grid-container">
             {products.map((plant) => {
               return (
@@ -48,8 +47,6 @@ class AllProducts extends React.Component {
                     <div className="all-descrip">{plant.description}</div>
                     <div className="all-price">{plant.price}</div>
                   </div>
-                  <div>{plant.category}</div>
-                  <div>{plant.price}</div>
                   {admin ? (
                     <button
                       type="submit"
