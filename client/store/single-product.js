@@ -5,28 +5,28 @@ const SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCT'
 const UPDATED_PRODUCT = 'UPDATED_PRODUCT'
 
 //ACTION CREATOR
-export const setSingleProduct = (product) => {
+export const setSingleProduct = product => {
   return {
     type: SET_SINGLE_PRODUCT,
-    product,
+    product
   }
 }
 
-export const updatedProduct = (newProduct) => {
+export const updatedProduct = newProduct => {
   return {
     type: UPDATED_PRODUCT,
-    newProduct,
+    newProduct
   }
 }
 
-export const addedProductStatus = (status) => {
+export const addedProductStatus = status => {
   return {
-    status: status,
+    status: status
   }
 }
 
 //THUNK
-export const fetchSingleProduct = (productId) => async (dispatch) => {
+export const fetchSingleProduct = productId => async dispatch => {
   try {
     const {data: product} = await axios.get(`/api/products/${productId}`)
     dispatch(setSingleProduct(product))
@@ -36,21 +36,20 @@ export const fetchSingleProduct = (productId) => async (dispatch) => {
   }
 }
 
-export const updateProduct = (product) => async (dispatch) => {
+export const updateProduct = (product, productId) => async dispatch => {
   try {
-    const {data} = await axios.put(`/api/products/${product.id}`, product)
+    const {data} = await axios.put(`/api/products/${productId}`, product)
     dispatch(updatedProduct(data))
   } catch (err) {
     console.log('There was an error updating product.')
-    console.error(err)
   }
 }
 
-export const addProductToCartThunk = (productId, price) => async (dispatch) => {
+export const addProductToCartThunk = (productId, price) => async dispatch => {
   try {
     const {data} = await axios.post('/api/orders_products', {
       productId,
-      price,
+      price
     })
     // dispatch(addedProductStatus(data.status))
     //how does status come through ? is it in our data object?
@@ -62,10 +61,10 @@ export const addProductToCartThunk = (productId, price) => async (dispatch) => {
 
 //REDUCER
 const initialState = {
-  product: {},
+  product: {}
 }
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case SET_SINGLE_PRODUCT:
       return {...state, product: action.product}

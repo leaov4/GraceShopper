@@ -9,7 +9,7 @@ router.get('/', async (req, res, next) => {
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ['id', 'email'],
+      attributes: ['id', 'email']
     })
     res.json(users)
   } catch (err) {
@@ -17,12 +17,31 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+//GET /api/users/admin
+//ADMIN GET REQUEST, ONLY ADMINS GET ALL USER DATA, WORKS HERE
+router.get('/admin', async (req, res, next) => {
+  try {
+    //checks for admin here, this works!
+    console.log('req.user.admin', req.user.admin) //true or false
+    if (!req.user.admin) {
+      const err = new Error(`You aren't admin, this is not allowed.`)
+      err.status = 401
+      return next(err)
+    } else {
+      const users = await User.findAll()
+      res.json(users)
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.get('/signup', async (req, res, next) => {
   try {
     const user = await User.findOne({
       where: {
-        email: req.query.email,
-      },
+        email: req.query.email
+      }
     })
     console.log('--->router user', user)
     if (user) {
@@ -42,7 +61,7 @@ router.post('/signup', async (req, res, next) => {
       firstName,
       lastName,
       email,
-      password,
+      password
     })
     res.json(newUser)
   } catch (err) {

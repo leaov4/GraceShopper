@@ -4,7 +4,7 @@ import {
   fetchSingleProduct,
   addedProductStatus,
   updateProduct,
-  addProductToCartThunk,
+  addProductToCartThunk
 } from '../store/single-product'
 import UpdateProduct from './update-product'
 import {fetchCartProductsThunk} from '../store/cart'
@@ -25,6 +25,7 @@ export class SingleProduct extends React.Component {
 
   render() {
     const product = this.props.product
+
     return (
       <div>
         <div className="single-product">
@@ -45,28 +46,29 @@ export class SingleProduct extends React.Component {
             Add to Cart
           </button>
         </div>
-        <UpdateProduct />
+        {this.props.admin ? <UpdateProduct id={product.id} /> : <div />}
       </div>
     )
   }
 }
 
-const mapState = (state) => {
+const mapState = state => {
   return {
     product: state.singleproduct.product,
     cart: state.cart,
+    admin: state.user.admin
   }
 }
 
 //on our add product button, onClick call addProductToCart & getUpdatedCart
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = dispatch => {
   return {
-    getSingleProduct: (productId) => dispatch(fetchSingleProduct(productId)),
+    getSingleProduct: productId => dispatch(fetchSingleProduct(productId)),
     addProductToCart: (productId, price) =>
       dispatch(addProductToCartThunk(productId, price)),
     getUpdatedCart: () => dispatch(fetchCartProductsThunk()),
-    getProductStatus: () => dispatch(addedProductStatus()),
+    getProductStatus: () => dispatch(addedProductStatus())
   }
 }
 
