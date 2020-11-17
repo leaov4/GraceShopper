@@ -8,6 +8,10 @@ const Order = db.define('order', {
       isIn: [['in-cart', 'processing', 'shipped', 'canceled']],
     },
   },
+  // price: {
+  //   type: Sequelize.DECIMAL(20, 2),
+  //   defaultValue: 0,
+  // },
 })
 
 module.exports = Order

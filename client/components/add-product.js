@@ -7,12 +7,12 @@ class AddProduct extends React.Component {
     super()
     this.state = {
       name: '',
-      price: null,
+      price: '',
       category: '',
       climate: '',
       season: '',
       description: '',
-      inventory: null,
+      inventory: '',
       imageUrl: '',
     }
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -25,17 +25,28 @@ class AddProduct extends React.Component {
     })
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault()
-    this.props.createProduct(this.state)
+
+    const name = this.state.name
+    const price = this.state.price
+    const category = this.state.category
+    const climate = this.state.climate
+    const season = this.state.season
+    const description = this.state.description
+    const inventory = this.state.inventory
+    const imageUrl = this.state.imageUrl
+
+    await this.props.createProduct(this.state)
+
     this.setState({
       name: '',
-      price: '',
+      price: price < 1 ? 'must be valid number' : '',
       category: '',
       climate: '',
       season: '',
       description: '',
-      inventory: '',
+      inventory: inventory < 1 ? 'must be valid number' : '',
       imageUrl: '',
     })
   }

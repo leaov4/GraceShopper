@@ -23,10 +23,13 @@ export class Cart extends React.Component {
 
   render() {
     let cartProducts = this.props.cartProducts
-    console.log('cart products ----->', cartProducts)
+    // console.log('cart products ----->', cartProducts)
+    // console.log('this.TOTAL ---> ON STATE', this.props.cartTotal)
     let totalPrice = cartProducts.reduce(
       (currentTotal, currentItem) =>
-        currentTotal + Number(currentItem.order_product.historicalPrice),
+        currentTotal +
+        Number(currentItem.order_product.historicalPrice) *
+          currentItem.order_product.quantity,
       0
     )
     //historicalPrice from database is return as a str somehow, may need to investigate why
