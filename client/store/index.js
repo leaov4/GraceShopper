@@ -13,7 +13,7 @@ const reducer = combineReducers({
   products,
   singleproduct,
   cart,
-  users
+  users,
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))

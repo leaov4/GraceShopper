@@ -7,10 +7,10 @@ const GET_USERS = 'GET_USERS'
 const initialState = []
 
 //ACTION CREATORS
-const getUsers = users => ({type: GET_USERS, users})
+const getUsers = (users) => ({type: GET_USERS, users})
 
 //THUNK CREATOR for ADMIN get route
-export const fetchUsers = () => async dispatch => {
+export const fetchUsers = () => async (dispatch) => {
   try {
     const {data} = await axios.get('/api/users/admin')
     console.log('data', data)
@@ -21,7 +21,7 @@ export const fetchUsers = () => async dispatch => {
 }
 
 //REDUCER
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case GET_USERS:
       return action.users

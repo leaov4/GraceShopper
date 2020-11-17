@@ -47,7 +47,7 @@ router.post('/', async (req, res, next) => {
       climate,
       season,
       description,
-      imageUrl
+      imageUrl,
     } = req.body
     const newProduct = await Product.create({
       name,
@@ -57,7 +57,7 @@ router.post('/', async (req, res, next) => {
       climate,
       season,
       description,
-      imageUrl
+      imageUrl,
     })
     res.json(newProduct)
   } catch (error) {
@@ -70,8 +70,8 @@ router.delete('/:productId', async (req, res, next) => {
   try {
     await Product.destroy({
       where: {
-        id: req.params.productId
-      }
+        id: req.params.productId,
+      },
     })
     res.sendStatus(204)
   } catch (error) {
@@ -85,7 +85,7 @@ router.put('/:productId', async (req, res, next) => {
     const {
       name,
       price,
-      inventory
+      inventory,
       // category,
       // climate,
       // season,
@@ -96,7 +96,7 @@ router.put('/:productId', async (req, res, next) => {
       {
         name,
         price,
-        inventory
+        inventory,
         // category,
         // climate,
         // season,
@@ -106,8 +106,8 @@ router.put('/:productId', async (req, res, next) => {
       {
         returning: true,
         where: {
-          id: req.params.productId
-        }
+          id: req.params.productId,
+        },
       }
     )
 

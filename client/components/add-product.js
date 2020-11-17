@@ -13,7 +13,7 @@ class AddProduct extends React.Component {
       season: '',
       description: '',
       inventory: null,
-      imageUrl: ''
+      imageUrl: '',
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -21,7 +21,7 @@ class AddProduct extends React.Component {
 
   handleChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     })
   }
 
@@ -36,7 +36,7 @@ class AddProduct extends React.Component {
       season: '',
       description: '',
       inventory: '',
-      imageUrl: ''
+      imageUrl: '',
     })
   }
 
@@ -107,13 +107,13 @@ class AddProduct extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  products: state.products
+const mapStateToProps = (state) => ({
+  products: state.products,
 })
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    createProduct: product => dispatch(createProduct(product))
+    createProduct: (product) => dispatch(createProduct(product)),
   }
 }
 

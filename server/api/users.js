@@ -9,7 +9,7 @@ router.get('/', async (req, res, next) => {
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ['id', 'email']
+      attributes: ['id', 'email'],
     })
     res.json(users)
   } catch (err) {
@@ -40,8 +40,8 @@ router.get('/signup', async (req, res, next) => {
   try {
     const user = await User.findOne({
       where: {
-        email: req.query.email
-      }
+        email: req.query.email,
+      },
     })
     console.log('--->router user', user)
     if (user) {
@@ -61,7 +61,7 @@ router.post('/signup', async (req, res, next) => {
       firstName,
       lastName,
       email,
-      password
+      password,
     })
     res.json(newUser)
   } catch (err) {

@@ -7,7 +7,7 @@ class AllProducts extends React.Component {
   constructor() {
     super()
     this.state = {
-      hasError: false
+      hasError: false,
     }
     this.handleRemove = this.handleRemove.bind(this)
   }
@@ -36,12 +36,17 @@ class AllProducts extends React.Component {
         <div>
           <div className="all-title">All Products</div>
           <div className="grid-container">
-            {products.map(plant => {
+            {products.map((plant) => {
               return (
-                <div className="item" key={plant.id}>
-                  <img src={plant.imageUrl} className="plants-img" />
-                  <div>
-                    <a href={`/products/${plant.id}`}>{plant.name}</a>
+                <div className="grid-item" key={plant.id}>
+                  <img src={plant.imageUrl} className="all-img" />
+                  <div className="all-info">
+                    <a href={`/products/${plant.id}`} className="all-name">
+                      {plant.name}
+                    </a>
+                    <div className="all-category">{plant.category}</div>
+                    <div className="all-descrip">{plant.description}</div>
+                    <div className="all-price">{plant.price}</div>
                   </div>
                   <div>{plant.category}</div>
                   <div>{plant.price}</div>
@@ -67,15 +72,15 @@ class AllProducts extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   products: state.products,
-  admin: state.user.admin
+  admin: state.user.admin,
 })
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     fetchProducts: () => dispatch(fetchProducts()),
-    destroyProduct: id => dispatch(destroyProduct(id))
+    destroyProduct: (id) => dispatch(destroyProduct(id)),
   }
 }
 

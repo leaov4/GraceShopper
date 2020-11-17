@@ -8,7 +8,7 @@ class UpdateProduct extends React.Component {
     this.state = {
       name: '',
       price: null,
-      inventory: null
+      inventory: null,
       // category: '',
       // climate: '',
       // season: '',
@@ -21,7 +21,7 @@ class UpdateProduct extends React.Component {
 
   handleChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     })
   }
 
@@ -96,13 +96,13 @@ class UpdateProduct extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  products: state.products
+const mapStateToProps = (state) => ({
+  products: state.products,
 })
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    updateProduct: (product, x) => dispatch(updateProduct(product, x))
+    updateProduct: (product, x) => dispatch(updateProduct(product, x)),
   }
 }
 

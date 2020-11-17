@@ -25,7 +25,7 @@ class Admin extends React.Component {
       <div>
         <h1>Admin Page</h1>
         <h3>All users data: </h3>
-        {users.map(item => {
+        {users.map((item) => {
           return (
             <div>
               <div>{item.id}</div>
@@ -42,15 +42,15 @@ class Admin extends React.Component {
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapState = (state) => {
   return {
-    users: state.users
+    users: state.users,
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
-    fetchUsers: () => dispatch(fetchUsers())
+    fetchUsers: () => dispatch(fetchUsers()),
   }
 }
 
