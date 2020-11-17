@@ -64,7 +64,7 @@ export default function (state = initialState, action) {
     case GET_PRODUCTS:
       return action.products
     case DELETE_PRODUCT:
-      return [...state].filter((product) => !product.includes(action.id))
+      return [...state].filter((product) => product.id === action.id)
     case ADD_PRODUCT:
       return [...state].concat(action.product)
     default:
