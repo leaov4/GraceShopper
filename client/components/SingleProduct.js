@@ -3,23 +3,30 @@ import {connect} from 'react-redux'
 import {
   fetchSingleProduct,
   addedProductStatus,
-  updateProduct,
   addProductToCartThunk,
 } from '../store/single-product'
 import UpdateProduct from './update-product'
-import {fetchCartProductsThunk} from '../store/cart'
+import {fetchCartProductsThunk, increaseQuantityThunk} from '../store/cart'
 
 export class SingleProduct extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id
     this.props.getSingleProduct(id)
+    this.props.getUpdatedCart()
   }
 
   async handleAddProduct() {
-    await this.props.addProductToCart(
-      this.props.product.id,
-      this.props.product.price
+    const cartMatch = this.props.cart.filter(
+      (product) => product.id === this.props.product.id
     )
+    if (cartMatch.length) {
+      await this.props.increaseQuantity(cartMatch[0].order_product)
+    } else {
+      await this.props.addProductToCart(
+        this.props.product.id,
+        this.props.product.price
+      )
+    }
     this.props.getUpdatedCart()
   }
 
@@ -69,6 +76,8 @@ const mapDispatch = (dispatch) => {
       dispatch(addProductToCartThunk(productId, price)),
     getUpdatedCart: () => dispatch(fetchCartProductsThunk()),
     getProductStatus: () => dispatch(addedProductStatus()),
+    increaseQuantity: (order_product) =>
+      dispatch(increaseQuantityThunk(order_product)),
   }
 }
 

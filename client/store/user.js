@@ -1,12 +1,10 @@
 import axios from 'axios'
 import history from '../history'
-
 /**
  * ACTION TYPES
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
-const CREATED_USER = 'CREATE_USER'
 
 /**
  * INITIAL STATE
@@ -18,10 +16,6 @@ const defaultUser = {}
  */
 const getUser = (user) => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
-const createdUser = (user) => ({
-  type: CREATED_USER,
-  user,
-})
 
 /**
  * THUNK CREATORS
@@ -61,7 +55,7 @@ export const logout = () => async (dispatch) => {
   }
 }
 
-export const createUser = (newUser) => async (dispatch) => {
+export const createUser = (newUser) => async () => {
   try {
     const {data: existingUser} = await axios.get(`/api/users/signup`, {
       params: {
@@ -71,13 +65,21 @@ export const createUser = (newUser) => async (dispatch) => {
     if (existingUser) {
       alert('That user already exists!')
     } else {
-      const {data: user} = axios.post(`/api/users/signup`, newUser)
-      dispatch(createdUser(user))
-      alert('Sign up successful!')
+      await axios.post(`/api/users/signup`, newUser)
     }
   } catch (err) {
     console.log('There was an error creating new user.')
     console.error(err)
+  }
+}
+
+export const createInitialOrder = () => {
+  return async () => {
+    try {
+      await axios.post(`/api/orders`)
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
