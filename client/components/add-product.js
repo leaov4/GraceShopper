@@ -54,7 +54,8 @@ class AddProduct extends React.Component {
   render() {
     return (
       <>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className="form">
+          <div className="form-title-signup">Add Product</div>
           <label htmlFor="name">Name:</label>
           <input
             name="name"
@@ -111,7 +112,9 @@ class AddProduct extends React.Component {
             onChange={this.handleChange}
             value={this.state.inventory}
           />
-          <button type="submit">Submit</button>
+          <button type="submit" className="cart-button">
+            Submit
+          </button>
         </form>
       </>
     )

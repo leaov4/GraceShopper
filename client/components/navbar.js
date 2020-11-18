@@ -19,12 +19,14 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         Shop
       </Link>
       <div className="nav-right">
-        <Link to="/cart" className="nav-cart">
-          Cart
-        </Link>
+        <div>
+          <Link to="/cart" className="nav-cart">
+            Cart
+          </Link>
+        </div>
 
         {isLoggedIn ? (
-          <div className="nav-logged">
+          <div>
             {/* The navbar will show these links after you log in */}
             <Link to="/user" className="nav-logged">
               Profile

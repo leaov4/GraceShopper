@@ -22,12 +22,12 @@ class Admin extends React.Component {
     let users = this.props.users
 
     return (
-      <div>
+      <div className="message-component">
         <h1>Admin Page</h1>
-        <h3>All users data: </h3>
+        <h3 className="message-text">All users data: </h3>
         {users.map((item) => {
           return (
-            <div>
+            <div className="message-text">
               <div>{item.id}</div>
               <div>{`${item.firstName} ${item.lastName} `}</div>
               <div>{` ${item.email}`}</div>

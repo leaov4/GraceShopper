@@ -48,7 +48,7 @@ nav {
 nav .logo {
   width: 75px;
   height: 75px;
-  margin-right: 150px;
+  margin-right: 250px;
 }
 
 .nav-shop {
@@ -212,6 +212,10 @@ nav .logo {
 
 .all-descrip {
   display: none;
+}
+
+.all-price {
+  margin-bottom: 6%;
 }
 
 /* CART */
@@ -391,7 +395,7 @@ nav .logo {
   align-items: center;
 }
 
-.form-title {
+.form-title-login {
   text-transform: uppercase;
   font-variant-caps: unicase;
   font-size: 200%;
@@ -400,6 +404,18 @@ nav .logo {
   padding-right: 30%;
   padding-top: 5%;
   padding-bottom: 5%;
+}
+
+.form-title-signup {
+  text-transform: uppercase;
+  font-variant-caps: unicase;
+  font-size: 200%;
+  background-color: rgba(240, 238, 146, 0.9);
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  text-align: center;
 }
 
 /* MAIN */
@@ -433,4 +449,23 @@ nav .logo {
 .main-subtitle {
   font-size: 110%;
   padding-bottom: 5%;
+}
+
+/* MESSAGE */
+
+.message-component {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin-left: 30%;
+  margin-right: 30%;
+  padding: 20px;
+  padding-top: 20px;
+  padding-bottom: 50px;
+  align-items: center;
+}
+
+.message-text {
+  align-self: flex-start;
+  padding-bottom: 5px;
 }
