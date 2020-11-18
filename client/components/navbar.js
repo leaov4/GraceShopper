@@ -18,7 +18,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       <Link to="/products" className="nav-shop">
         Shop
       </Link>
-      {/* {fill in cart img later} */}
       <div className="nav-right">
         <Link to="/cart" className="nav-cart">
           Cart
