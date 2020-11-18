@@ -23,8 +23,8 @@ class AllProducts extends React.Component {
     }
   }
 
-  async handleRemove(event) {
-    await this.props.destroyProduct(event.target.value)
+  async handleRemove(id) {
+    await this.props.destroyProduct(id)
     this.props.fetchProducts()
   }
 
@@ -49,7 +49,6 @@ class AllProducts extends React.Component {
     } else {
       return (
         <div>
-          <div className="all-title">All Products</div>
           <div className="grid-container">
             {products.map((plant) => {
               return (
@@ -63,22 +62,26 @@ class AllProducts extends React.Component {
                     <div className="all-descrip">{plant.description}</div>
                     <div className="all-price">{plant.price}</div>
                   </div>
-                  <div>{plant.category}</div>
-                  <div>{plant.price}</div>
                   <button
                     type="submit"
+                    className="cart-button"
                     onClick={() => this.handleAddProduct(plant)}
                   >
                     Add to cart
                   </button>
                   {admin ? (
-                    <button
-                      type="submit"
-                      value={plant.id}
-                      onClick={this.handleRemove}
-                    >
-                      X
-                    </button>
+                    <div>
+                      <div className="all-inventory">
+                        Inventory: {plant.inventory}
+                      </div>
+                      <button
+                        type="submit"
+                        value={plant.id}
+                        onClick={() => this.handleRemove(plant.id)}
+                      >
+                        X
+                      </button>
+                    </div>
                   ) : (
                     <div />
                   )}

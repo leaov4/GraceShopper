@@ -37,21 +37,25 @@ export class SingleProduct extends React.Component {
       <div>
         <div className="single-product">
           <img className="p-img" src={product.imageUrl} />
-          <h1 className="p-name">{product.name}</h1>
-          <h2 className="p-category">{product.category}</h2>
-          <h2 className="p-climate">{product.climate}</h2>
-          <h2 className="p-season">{product.season}</h2>
-          <h3 className="p-descrip">{product.description}</h3>
-          <h4 className="p-price">{product.price}</h4>
-        </div>
-        <div>
-          <button
-            className="p-addcart"
-            type="button"
-            onClick={() => this.handleAddProduct()}
-          >
-            Add to Cart
-          </button>
+          <div className="p-info">
+            <div className="p-name">{product.name}</div>
+            <div className="p-groupings">
+              <div className="p-category">{product.category}</div>
+              <div className="p-category">{product.climate}</div>
+              <div className="p-category">{product.season}</div>
+            </div>
+            <div className="p-descrip">{product.description}</div>
+            <div className="p-footer">
+              <div className="p-price">{product.price}</div>
+              <button
+                className="cart-button"
+                type="button"
+                onClick={() => this.handleAddProduct()}
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
         </div>
         {this.props.admin ? <UpdateProduct id={product.id} /> : <div />}
       </div>
