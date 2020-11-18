@@ -61,30 +61,31 @@ class AllProducts extends React.Component {
                     <div className="all-category">{plant.category}</div>
                     <div className="all-descrip">{plant.description}</div>
                     <div className="all-price">{plant.price}</div>
-                  </div>
-                  <button
-                    type="submit"
-                    className="cart-button"
-                    onClick={() => this.handleAddProduct(plant)}
-                  >
-                    Add to cart
-                  </button>
-                  {admin ? (
-                    <div>
-                      <div className="all-inventory">
-                        Inventory: {plant.inventory}
+                    <button
+                      type="submit"
+                      className="cart-button"
+                      onClick={() => this.handleAddProduct(plant)}
+                    >
+                      Add to cart
+                    </button>
+
+                    {admin ? (
+                      <div>
+                        <div className="all-inventory">
+                          Inventory: {plant.inventory}
+                        </div>
+                        <button
+                          type="submit"
+                          value={plant.id}
+                          onClick={() => this.handleRemove(plant.id)}
+                        >
+                          X
+                        </button>
                       </div>
-                      <button
-                        type="submit"
-                        value={plant.id}
-                        onClick={() => this.handleRemove(plant.id)}
-                      >
-                        X
-                      </button>
-                    </div>
-                  ) : (
-                    <div />
-                  )}
+                    ) : (
+                      <div />
+                    )}
+                  </div>
                 </div>
               )
             })}
