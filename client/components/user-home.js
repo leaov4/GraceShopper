@@ -9,14 +9,14 @@ export const UserHome = (props) => {
   const {email, admin, name} = props
 
   return (
-    <div>
+    <div className="message-component">
       <h3>Welcome, {name}</h3>
-      <div>Email: {email} </div>
+      <div className="message-text">Email: {email} </div>
       {admin ? (
         <div>
-          <div>
+          <div className="message-text">
             You are an admin. To view your admin page to add view all users,
-            click{' '}
+            click:{' '}
           </div>
           <a href="/admin">My Admin Page</a>
         </div>

@@ -38,7 +38,8 @@ class UpdateProduct extends React.Component {
   render() {
     return (
       <>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className="form">
+          <div className="form-title-login">Update Product</div>
           <label htmlFor="name">Name:</label>
           <input
             name="name"
@@ -95,7 +96,9 @@ class UpdateProduct extends React.Component {
             onChange={this.handleChange}
             value={this.state.season}
           /> */}
-          <button type="submit">Submit</button>
+          <button type="submit" className="cart-button">
+            Submit
+          </button>
         </form>
       </>
     )

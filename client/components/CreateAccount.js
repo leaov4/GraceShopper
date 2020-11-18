@@ -31,7 +31,8 @@ class CreateAccount extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className="form">
+          <div className="form-title-signup">Sign Up</div>
           <label htmlFor="firstName">First Name</label>
           <input
             name="firstName"
@@ -66,7 +67,7 @@ class CreateAccount extends React.Component {
             required
           />
           <div>
-            <button button type="submit">
+            <button button type="submit" className="cart-button">
               Submit
             </button>
           </div>
