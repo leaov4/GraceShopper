@@ -461,15 +461,11 @@ const orderData = [
     userId: '4',
   },
   {
-    orderStatus: 'processing',
+    orderStatus: 'in-cart',
     userId: '5',
   },
   {
-    orderStatus: 'processing',
-    userId: '5',
-  },
-  {
-    orderStatus: 'processing',
+    orderStatus: 'in-cart',
     userId: '6',
   },
   {
@@ -477,32 +473,60 @@ const orderData = [
     userId: '6',
   },
   {
-    orderStatus: 'processing',
+    orderStatus: 'in-cart',
     userId: '7',
   },
   {
-    orderStatus: 'shipped',
+    orderStatus: 'in-cart',
     userId: '8',
+  },
+  {
+    orderStatus: 'processing',
+    userId: '8',
+  },
+  {
+    orderStatus: 'in-cart',
+    userId: '9',
   },
   {
     orderStatus: 'shipped',
     userId: '9',
   },
   {
+    orderStatus: 'in-cart',
+    userId: '10',
+  },
+  {
     orderStatus: 'shipped',
     userId: '10',
+  },
+  {
+    orderStatus: 'in-cart',
+    userId: '11',
   },
   {
     orderStatus: 'canceled',
     userId: '11',
   },
   {
+    orderStatus: 'in-cart',
+    userId: '12',
+  },
+  {
     orderStatus: 'canceled',
     userId: '12',
   },
   {
     orderStatus: 'canceled',
     userId: '12',
+  },
+  {
+    orderStatus: 'in-cart',
+    userId: '13',
+  },
+  {
+    orderStatus: 'in-cart',
+    userId: '14',
   },
 ]
 

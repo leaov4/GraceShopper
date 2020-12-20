@@ -9,7 +9,7 @@ import {logout} from '../store'
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
     <nav>
-      <Link to="/home">
+      <Link to="/home" className="home">
         <img
           className="logo"
           src="https://asset.bloomnation.com/c_fit,f_auto,h_1000,q_auto,w_1000/v1/vendor/7838/profile/uniqueFlowerFashions-logo_5eab26b3a20e3.png"
