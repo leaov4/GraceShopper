@@ -1,5 +1,5 @@
 # Plant Palace
-Our website: https://plant-palace.herokuapp.com/
+Our website: 
 
 Database Schema: https://drive.google.com/file/d/1XBNOCsCXQ8d7QzH40paZzvoiG3yXCBo0/view?usp=sharing
 
