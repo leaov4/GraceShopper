@@ -36,7 +36,7 @@ export class Cart extends React.Component {
 
     return (
       <div>
-        <h1>Cart</h1>
+        <div className="main-title">Cart</div>
         <div className="cartProducts">
           {cartProducts[0].id === 0 ? (
             <h3>no products in cart</h3>
