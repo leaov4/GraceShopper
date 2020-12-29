@@ -48,7 +48,7 @@ class AllProducts extends React.Component {
       return <div>oops! something went wrong here</div>
     } else {
       return (
-        <div>
+        <div className="largest-container">
           <div className="grid-container">
             {products.map((plant) => {
               return (
